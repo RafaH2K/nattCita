@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-dots"></div>
+
+<div class="app">
+<div class="container">
+
+    <!-- PROGRESS + HEADER -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="prog" style="width:14%"></div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <div class="dot"></div>
+            <h2>Date Planner</h2>
+        </div>
+        <span class="step-label" id="stepLabel">1 / 6</span>
+    </header>
+
+    <main>
+
+        <!-- HOME -->
+        <section class="page active" id="p-home">
+            <div class="heart-wrap">💚</div>
+            <h1>hey natt 👋</h1>
+            <p class="subtitle">hice una mini aplicación porque quería preguntarte algo de una forma un poco diferente.<br><br>espero que te guste :)</p>
+            <button class="btn btn-primary" onclick="planner.go('question')">empezar →</button>
+        </section>
+
+        <!-- QUESTION -->
+        <section class="page" id="p-question">
+            <h1>una pregunta</h1>
+            <p class="subtitle">es sencilla, te lo prometo.</p>
+            <p class="big-question">¿te gustaría salir conmigo?</p>
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="planner.accept()">sí :)</button>
+                <button class="btn btn-secondary" onclick="planner.notSure()">todavía no lo sé</button>
+            </div>
+            <div class="not-sure-msg" id="notSureMsg">
+                no pasa nada, no hay prisa 💚<br>
+                esta página va a estar aquí cuando estés lista. puedes regresar cuando quieras y continuar desde aquí.
+            </div>
+        </section>
+
+        <!-- PLAN -->
+        <section class="page" id="p-plan">
+            <h1>¿qué plan te gustaría?</h1>
+            <p class="subtitle">elige el que más se te antoje.</p>
+            <div class="cards" id="cards-plan">
+                <div class="card-opt" data-val="Cine"><span class="emoji">🎬</span><span>Cine</span></div>
+                <div class="card-opt" data-val="Café"><span class="emoji">☕</span><span>Café</span></div>
+                <div class="card-opt" data-val="Patinar"><span class="emoji">🛹</span><span>Patinar</span></div>
+                <div class="card-opt" data-val="Comer"><span class="emoji">🍜</span><span>Comer</span></div>
+                <div class="card-opt" data-val="Roadtrip"><span class="emoji">🚗</span><span>Roadtrip</span></div>
+            </div>
+            <button class="btn btn-primary" onclick="planner.goFromCards('plan','food')">continuar →</button>
+        </section>
+
+        <!-- FOOD -->
+        <section class="page" id="p-food">
+            <h1>¿qué se te antoja comer?</h1>
+            <p class="subtitle">para asegurarme de llevarte a tu lugar favorito.</p>
+            <div class="cards" id="cards-food">
+                <div class="card-opt" data-val="Pizza"><span class="emoji">🍕</span><span>Pizza</span></div>
+                <div class="card-opt" data-val="Sushi"><span class="emoji">🍣</span><span>Sushi</span></div>
+                <div class="card-opt" data-val="Tacos"><span class="emoji">🌮</span><span>Tacos</span></div>
+                <div class="card-opt" data-val="Ramen"><span class="emoji">🍜</span><span>Ramen</span></div>
+                <div class="card-opt" data-val="Burger"><span class="emoji">🍔</span><span>Burger</span></div>
+                <div class="card-opt" data-val="Café"><span class="emoji">☕</span><span>Café</span></div>
+            </div>
+            <button class="btn btn-primary" onclick="planner.goFromCards('food','date')">continuar →</button>
+        </section>
+
+        <!-- DATE -->
+        <section class="page" id="p-date">
+            <h1>¿cuándo te queda bien?</h1>
+            <p class="subtitle">elige el día y la hora que más se acomoden a tu agenda.</p>
+            <div class="field-row">
+                <div>
+                    <label class="field-label" for="dateInput">día</label>
+                    <input type="date" id="dateInput" class="field">
+                </div>
+                <div>
+                    <label class="field-label" for="timeInput">hora</label>
+                    <input type="time" id="timeInput" class="field">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="planner.goFromDate()">continuar →</button>
+        </section>
+
+        <!-- MESSAGE -->
+        <section class="page" id="p-message">
+            <h1>¿algo más?</h1>
+            <p class="subtitle">si tienes alguna petición especial, alergia, lugar favorito, o simplemente quieres decir algo — este es el espacio.</p>
+            <textarea class="field" id="messageInput" placeholder="escribe aquí (opcional)..."></textarea>
+            <button class="btn btn-primary" onclick="planner.finish()">terminar ✓</button>
+        </section>
+
+        <!-- FINISH -->
+        <section class="page" id="p-finish">
+            <div class="checkmark">✓</div>
+            <h1 class="centered">todo listo ✅</h1>
+            <p class="subtitle centered">ahora me toca a mí organizar algo chido 💚</p>
+            <div class="summary-grid" id="summaryGrid"></div>
+        </section>
+
+    </main>
+</div>
+</div>
+
+<div id="toasts"></div>
+
+<script type="module" src="firebase.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

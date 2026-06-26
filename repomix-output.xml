@@ -1,0 +1,1307 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+firebase.js
+index.html
+script.js
+style.css
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="firebase.js">
+// ==========================
+// Firebase
+// ==========================
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+
+// ==========================
+// TU CONFIGURACIÓN
+// ==========================
+
+const firebaseConfig = {
+
+    apiKey: "TU_API_KEY",
+
+    authDomain: "TU_PROYECTO.firebaseapp.com",
+
+    projectId: "TU_PROYECTO",
+
+    storageBucket: "TU_PROYECTO.appspot.com",
+
+    messagingSenderId: "123456789",
+
+    appId: "TU_APP_ID"
+
+};
+
+
+// ==========================
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+// ==========================
+// Función para guardar
+// ==========================
+
+window.saveToFirebase = async function(data){
+
+    try{
+
+        await addDoc(
+
+            collection(db,"citas"),
+
+            {
+
+                ...data,
+
+                createdAt: serverTimestamp()
+
+            }
+
+        );
+
+        return true;
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        return false;
+
+    }
+
+}
+</file>
+
+<file path="index.html">
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Date Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+
+<header>
+
+<div class="progress-container">
+
+    <div id="progress"></div>
+
+</div>
+    
+
+<div class="logo">
+
+<div class="dot"></div>
+
+<h2>Date Planner</h2>
+
+</div>
+
+<p class="version">
+
+v1.0
+
+</p>
+
+</header>
+
+<main id="app">
+
+<!-- HOME -->
+
+<section class="page active" id="home">
+
+<h1>
+
+hey natt 👋
+
+</h1>
+
+<p>
+
+hice una mini aplicación porque quería preguntarte algo de una forma un poco diferente.
+
+</p>
+
+<p>
+
+espero que te guste :)
+
+</p>
+
+<button class="primary" onclick="planner.nextPage('question')">
+
+empezar
+
+</button>
+
+</section>
+
+<!-- QUESTION -->
+
+<section class="page" id="question">
+
+<h1>
+
+una pregunta
+
+</h1>
+
+<p>
+
+¿te gustaría salir conmigo?
+
+</p>
+
+<div class="actions">
+
+<button
+
+class="primary"
+
+onclick="planner.accept()"
+
+>
+
+sí :)
+
+</button>
+
+<button
+
+class="secondary"
+
+onclick="planner.notSure()"
+
+>
+
+todavía no lo sé
+
+</button>
+
+</div>
+
+</section>
+
+<!-- PLAN -->
+
+<section class="page" id="plan">
+
+<h1>
+
+¿qué plan te gustaría?
+
+</h1>
+
+<div class="cards">
+
+<div class="card-option"
+
+data-value="Cine">
+
+🎬
+
+<span>Cine</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Café">
+
+☕
+
+<span>Café</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Patinar">
+
+🛹
+
+<span>Patinar</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Ramen">
+
+🍜
+
+<span>Comer</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Roadtrip">
+
+🚗
+
+<span>Roadtrip</span>
+
+</div>
+
+</div>
+
+<button
+
+class="primary"
+
+onclick="planner.nextPage('food')">
+
+continuar
+
+</button>
+
+</section>
+
+<!-- FOOD -->
+
+<section
+
+class="page"
+
+id="food">
+
+<h1>
+
+¿qué se te antoja comer?
+
+</h1>
+
+<div class="cards">
+
+<div class="card-option"
+
+data-value="Pizza">
+
+🍕
+
+<span>Pizza</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Sushi">
+
+🍣
+
+<span>Sushi</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Tacos">
+
+🌮
+
+<span>Tacos</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Ramen">
+
+🍜
+
+<span>Ramen</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Hamburguesa">
+
+🍔
+
+<span>Burger</span>
+
+</div>
+
+<div class="card-option"
+
+data-value="Café">
+
+☕
+
+<span>Café</span>
+
+</div>
+
+</div>
+
+<button
+
+class="primary"
+
+onclick="planner.nextPage('date')">
+
+continuar
+
+</button>
+
+</section>
+
+<!-- DATE -->
+
+<section
+
+class="page"
+
+id="date">
+
+<h1>
+
+¿qué día te queda mejor?
+
+</h1>
+
+<input
+
+type="date"
+
+id="dateInput">
+
+<br><br>
+
+<input
+
+type="time"
+
+id="timeInput">
+
+<br><br>
+
+<button
+
+class="primary"
+
+onclick="planner.nextPage('message')">
+
+continuar
+
+</button>
+
+</section>
+
+<!-- MESSAGE -->
+
+<section
+
+class="page"
+
+id="message">
+
+<h1>
+
+¿algo más?
+
+</h1>
+
+<textarea
+
+id="messageInput"
+
+placeholder="escribe aquí..."></textarea>
+
+<br><br>
+
+<button
+
+class="primary"
+
+onclick="planner.finish()">
+
+terminar
+
+</button>
+
+</section>
+
+<!-- FINISH -->
+
+<section
+
+class="page"
+
+id="finish">
+
+<h1>
+
+todo listo ✅
+
+</h1>
+
+<p>
+
+ahora me toca organizar una cita chida.
+
+</p>
+
+<div class="summary">
+
+<div id="summaryContent">
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<script type="module" src="firebase.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
+</file>
+
+<file path="script.js">
+class DatePlanner {
+
+    constructor() {
+
+        // ==========================
+        // Datos de la cita
+        // ==========================
+
+        this.data = {
+
+            accepted: false,
+
+            plan: "",
+
+            food: "",
+
+            date: "",
+
+            time: "",
+
+            message: ""
+
+        };
+
+        // ==========================
+        // Orden de las pantallas
+        // ==========================
+
+        this.pages = [
+
+            "home",
+
+            "question",
+
+            "plan",
+
+            "food",
+
+            "date",
+
+            "message",
+
+            "finish"
+
+        ];
+
+        // ==========================
+        // Página actual
+        // ==========================
+
+        this.currentPage = "home";
+
+        // ==========================
+        // Inicializar
+        // ==========================
+
+        this.init();
+
+    }
+
+    // ==================================
+    // Inicio
+    // ==================================
+
+    init() {
+
+        console.log("Date Planner iniciado.");
+
+        this.setupCards();
+
+        this.createToastContainer();
+
+    }
+
+    // ==================================
+    // Cambiar pantalla
+    // ==================================
+
+    nextPage(pageId) {
+
+        const current = document.querySelector(".page.active");
+
+        if (current) {
+
+            current.classList.remove("active");
+
+        }
+
+        document
+
+            .getElementById(pageId)
+
+            .classList
+
+            .add("active");
+
+        this.currentPage = pageId;
+
+        this.updateProgress();
+
+    }
+
+    // ==================================
+    // Barra de progreso
+    // ==================================
+
+    updateProgress() {
+
+        const progress = document.getElementById("progress");
+
+        if (!progress) return;
+
+        const index = this.pages.indexOf(this.currentPage);
+
+        const percent = ((index + 1) / this.pages.length) * 100;
+
+        progress.style.width = percent + "%";
+
+    }
+
+    // ==================================
+    // Toast
+    // ==================================
+
+    createToastContainer() {
+
+        const div = document.createElement("div");
+
+        div.id = "toast-container";
+
+        document.body.appendChild(div);
+
+    }
+
+    showToast(message, type = "info") {
+
+        const toast = document.createElement("div");
+
+        toast.className = "toast " + type;
+
+        toast.textContent = message;
+
+        document
+
+            .getElementById("toast-container")
+
+            .appendChild(toast);
+
+        setTimeout(() => {
+
+            toast.classList.add("show");
+
+        }, 50);
+
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+            setTimeout(() => {
+
+                toast.remove();
+
+            }, 300);
+
+        }, 2500);
+
+    }
+
+    // ==================================
+    // Botón "Sí"
+    // ==================================
+
+    accept() {
+
+        this.data.accepted = true;
+
+        this.showToast("Genial 😊");
+
+        setTimeout(() => {
+
+            this.nextPage("plan");
+
+        }, 600);
+
+    }
+
+    // ==================================
+    // Botón "Todavía no sé"
+    // ==================================
+
+    notSure() {
+
+        this.showToast(
+
+            "No pasa nada, puedes regresar cuando quieras 💚"
+
+        );
+
+    }
+
+    // ==================================
+    // Tarjetas
+    // ==================================
+
+    setupCards() {
+
+        const cards = document.querySelectorAll(".card-option");
+
+        cards.forEach(card => {
+
+            card.addEventListener("click", () => {
+
+                const group = card.parentElement;
+
+                group
+
+                    .querySelectorAll(".card-option")
+
+                    .forEach(c => {
+
+                        c.classList.remove("selected");
+
+                    });
+
+                card.classList.add("selected");
+
+            });
+
+        });
+
+    }
+
+}
+
+const planner = new DatePlanner();
+
+window.planner = planner;
+</file>
+
+<file path="style.css">
+/* ===========================
+   VARIABLES
+=========================== */
+
+.progress-container{
+
+    height:5px;
+
+    background:#243146;
+
+}
+
+#progress{
+
+    width:14%;
+
+    height:100%;
+
+    background:var(--primary);
+
+    transition:.45s;
+
+}
+
+#toast-container{
+
+    position:fixed;
+
+    top:25px;
+
+    right:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    z-index:999;
+
+}
+
+.toast{
+
+    background:#172033;
+
+    border:1px solid var(--border);
+
+    color:white;
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    transform:translateX(350px);
+
+    transition:.3s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+.toast.show{
+
+    transform:translateX(0);
+
+}
+
+.toast.info{
+
+    border-left:4px solid var(--primary);
+
+}
+
+:root{
+
+    --bg:#0f172a;
+    --card:#172033;
+    --card-hover:#1f2d46;
+
+    --primary:#4ade80;
+    --primary-dark:#22c55e;
+
+    --text:#f8fafc;
+    --text2:#94a3b8;
+
+    --border:#2b3648;
+
+    --shadow:0 20px 50px rgba(0,0,0,.35);
+
+}
+
+/* ===========================
+RESET
+=========================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Segoe UI,sans-serif;
+
+}
+
+body{
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+}
+
+/* ===========================
+BACKGROUND
+=========================== */
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(circle at top left,
+        rgba(74,222,128,.18),
+        transparent 30%),
+
+        radial-gradient(circle at bottom right,
+        rgba(34,197,94,.12),
+        transparent 35%);
+
+    z-index:-2;
+
+}
+
+/* pequeñas partículas */
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        radial-gradient(#4ade8030 1px,transparent 1px);
+
+    background-size:40px 40px;
+
+    animation:moveBackground 18s linear infinite;
+
+    opacity:.35;
+
+}
+
+@keyframes moveBackground{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(-40px);
+
+    }
+
+}
+
+/* ===========================
+APP
+=========================== */
+
+.container{
+
+    width:min(92%,720px);
+
+    background:rgba(23,32,51,.82);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid var(--border);
+
+    border-radius:24px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+
+}
+
+/* ===========================
+HEADER
+=========================== */
+
+header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:22px 28px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.dot{
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    box-shadow:0 0 12px var(--primary);
+
+}
+
+.version{
+
+    color:var(--text2);
+
+    font-size:.9rem;
+
+}
+
+/* ===========================
+PAGES
+=========================== */
+
+.page{
+
+    display:none;
+
+    padding:50px;
+
+    animation:fade .45s ease;
+
+}
+
+.page.active{
+
+    display:block;
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+h1{
+
+    font-size:2.3rem;
+
+    margin-bottom:18px;
+
+}
+
+p{
+
+    color:var(--text2);
+
+    line-height:1.7;
+
+    margin-bottom:22px;
+
+}
+
+/* ===========================
+BOTONES
+=========================== */
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:14px 22px;
+
+    font-size:1rem;
+
+    transition:.25s;
+
+}
+
+.primary{
+
+    background:var(--primary);
+
+    color:#052e16;
+
+    font-weight:700;
+
+}
+
+.primary:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-2px);
+
+}
+
+.secondary{
+
+    background:transparent;
+
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+}
+
+.secondary:hover{
+
+    background:var(--card-hover);
+
+}
+
+.actions{
+
+    display:flex;
+
+    gap:14px;
+
+}
+
+/* ===========================
+CARDS
+=========================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+
+    gap:18px;
+
+    margin:35px 0;
+
+}
+
+.card-option{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:28px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    user-select:none;
+
+}
+
+.card-option:hover{
+
+    transform:translateY(-6px);
+
+    border-color:var(--primary);
+
+    box-shadow:0 10px 25px rgba(74,222,128,.18);
+
+}
+
+.card-option.selected{
+
+    background:#163320;
+
+    border-color:var(--primary);
+
+}
+
+.card-option{
+
+    font-size:2rem;
+
+}
+
+.card-option span{
+
+    display:block;
+
+    margin-top:12px;
+
+    font-size:1rem;
+
+}
+
+/* ===========================
+INPUTS
+=========================== */
+
+input,
+textarea{
+
+    width:100%;
+
+    background:var(--card);
+
+    color:white;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:15px;
+
+    outline:none;
+
+}
+
+textarea{
+
+    resize:none;
+
+    height:130px;
+
+}
+
+input:focus,
+textarea:focus{
+
+    border-color:var(--primary);
+
+}
+
+/* ===========================
+SUMMARY
+=========================== */
+
+.summary{
+
+    margin-top:30px;
+
+    padding:20px;
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    border:1px solid var(--border);
+
+}
+
+/* ===========================
+RESPONSIVE
+=========================== */
+
+@media(max-width:700px){
+
+    .page{
+
+        padding:28px;
+
+    }
+
+    .actions{
+
+        flex-direction:column;
+
+    }
+
+}
+</file>
+
+</files>
